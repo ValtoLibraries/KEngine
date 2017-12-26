@@ -8,7 +8,7 @@
 
 ##### 'Normal' objects
 
-`SfSystem` reads the resource file to be used for a `GameObject` from its [MetaComponent](../../components/MetaComponent.md)'s `appearance` property.
+`SfSystem` reads the resource file to be used for a `GameObject` from its [GraphicsComponent](../../components/GraphicsComponent.md)'s `appearance` property.
 
 If `appearance` was previously registered as an abstract appearance through a [RegisterAppearance](../../packets/RegisterAppearance.hpp) datapacket, the resource file that was associated to it is loaded instead.
 
@@ -17,6 +17,16 @@ If `appearance` was previously registered as an abstract appearance through a [R
 ```
 /!\ That 3d is important! TransformComponent2d, 2i, 3i, 3f... Will not be detected!
 ```
+
+##### Cameras
+
+A *"default"* camera is added upon system construction, meaning typical use does not require any action. For further configuration of the rendered areas, `CameraComponents` can be used.
+
+If a `GameObject` is found to have a [CameraComponent](../../components/CameraComponent.hpp), a camera will be added to the scene.
+
+ The `CameraComponent`'s `frustrum` property defines the area to be rendered, whereas the `GameObject`'s `TransformComponent3d`'s `boundingBox` property defines the bounds of the viewport to be displayed.
+
+Refer to [the SFML website](https://www.sfml-dev.org/tutorials/2.0/graphics-view.php) for more information about viewports.
 
 ##### GUI
 
@@ -31,8 +41,9 @@ If a [kengine::LuaSystem](../../systems/LuaSystem.md) is found when the `SfSyste
 * `setKeyHandler(std::function<void(Sf::Keyboard::Key)> onPress, std::function<void(sf::Keyboard::Key)> onRelease)`: sets the key handler for all keys
 * `setMouseButtonHandler(std::function<void(Sf::Mouse::Button, int x, int y)> onPress, std::function<void(sf::Mouse::Button, int x, int y)> onRelease)`: sets the button handler for all keys
 * `setMouseMovedHandler(std::function<void(int x, int y)> func)`: sets the mouse move handler
-* `getWindowSize()`
-* `getTileSize()`
+* `getWindowSize()`: returns the window size in pixels
+* `getTileSize()`: returns the tile size in pixels
+* `getGridSize()`: returns the window size in tiles
 
 ### Configuration
 
